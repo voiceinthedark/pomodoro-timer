@@ -35,6 +35,10 @@ body {
   stroke: #09A65A;
   top: 0;
   z-index: 1;
+  transform: rotate(90deg);
+  stroke-linecap: round;
+  transition: 1s linear;
+  fill-rule: nonzero;
 }
 
 .ring.ending circle {
