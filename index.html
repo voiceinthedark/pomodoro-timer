@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>01 - Pomodoro || Advent of JavaScript</title>
   <link rel="stylesheet" href="./styles.css" />
+  <script type="text/javascript" src='script.js' defer></script>
 </head>
 
 <body>
@@ -14,18 +15,18 @@
   <div class="wrapper">
     <div class="ring">
       <svg width="518" height="518" viewBox="0 0 518 518">
-        <circle stroke-width="9px" x="0" y="y" cx="259" cy="259" r="254" />
+        <circle id="circle" stroke-width="9px" x="0" y="y" cx="259" cy="259" r="254" />
       </svg>
     </div>
 
     <div class="timer">
       <div class="time">
         <div class="minutes">
-          <input type="text" value="15" disabled />
+          <input id="minutesInput" type="text" value="15" disabled />
         </div>
         <div class="colon">:</div>
         <div class="seconds">
-          <input type="text" value="00" disabled />
+          <input id="secondsInput" type="text" value="00" disabled />
         </div>
       </div>
       <button class="start">start</button>
