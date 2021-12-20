@@ -35,14 +35,18 @@ body {
   stroke: #09A65A;
   top: 0;
   z-index: 1;
+  transform-origin: center;
   transform: rotate(90deg);
-  stroke-linecap: round;
-  transition: 1s linear;
+  stroke-linecap: round;  
   fill-rule: nonzero;
 }
 
 .ring.ending circle {
   stroke: #900A0A;
+}
+
+#circle {
+  transition: 1s linear all;
 }
 
 /* inner circle */

@@ -13,7 +13,7 @@ let lengthOfArc = 2 * Math.PI * radiusOfTimerCircle; // 1595.929068023615
 
 
 // starting with original time limit of 15 minutes
-let time_limit = 1 * 60;
+let time_limit = 1 * 20;
 // the time that has passed since starting
 let time_passed = 0;
 // initialy time left is equal to the time limit
@@ -51,13 +51,20 @@ function startTimer() {
 
         setCircleDasharray();
 
+        // time is up
+        if(time_left === 0){
+            onTimesUp();
+        }
+
     }, 1000);
     
 }
 
 // Divides time left by the defined time limit.
 function calculateTimeFraction() {
-  return time_left / time_limit;
+    let rawTimeLimit = time_left / time_limit;
+    // to completely eliminates ring strokes, function need to work an extra second after the time limit
+  return rawTimeLimit - (1 / time_limit) * (1 - rawTimeLimit);
 }
     
 // Update the dasharray value as time passes, starting with 283
@@ -74,5 +81,7 @@ btnStart.addEventListener('click', () => {
     startTimer();
 })
 
-
+function onTimesUp() {
+    clearInterval(timerInterval);
+}
 
