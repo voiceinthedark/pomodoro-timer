@@ -3,6 +3,7 @@ let minutesInput = document.querySelector('#minutesInput');
 let secondsInput = document.querySelector('#secondsInput');
 // get the start button
 const btnStart = document.querySelector('.start');
+let btnToggleStart = true; // btn flag, change to stop when clicked
 // get the circle
 const circle = document.querySelector('#circle');
 let radiusOfTimerCircle = circle.getAttribute('r');
@@ -13,7 +14,7 @@ let lengthOfArc = 2 * Math.PI * radiusOfTimerCircle; // 1595.929068023615
 
 
 // starting with original time limit of 15 minutes
-let time_limit = 1 * 20;
+let time_limit = (+minutesInput.value * 60) + +secondsInput.value;
 // the time that has passed since starting
 let time_passed = 0;
 // initialy time left is equal to the time limit
@@ -34,6 +35,7 @@ function formatTimeLeft(time) {
     seconds = `0${seconds}`;
   }
 
+  console.log(minutes, seconds);
   // The output in MM:SS format
   return { minutes, seconds };
 }
@@ -78,10 +80,23 @@ function setCircleDasharray() {
 }
 
 btnStart.addEventListener('click', () => {
-    startTimer();
+    if(btnToggleStart){
+        startTimer();        
+    } else {
+        clearInterval(timerInterval);
+    }
+    btnToggleStart = !btnToggleStart;
+    btnStart.textContent = btnToggleStart ? 'Start' : 'Stop';
 })
 
 function onTimesUp() {
     clearInterval(timerInterval);
+    btnToggleStart = true;
+    btnStart.textContent = 'Start';
+
+    // Reset the time
+    time_passed = 0;
+    time_left = time_limit;
+    timerInterval = null;
 }
 
