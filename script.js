@@ -18,6 +18,7 @@ const ringDiv = document.querySelector('.ring');
   /****************** */
   /** Pomodoro module */
   /****************** */
+  
 const pomodoro = (function () {
   let radiusOfTimerCircle = circle.getAttribute('r');
   // Length of the arc 2*π*r
