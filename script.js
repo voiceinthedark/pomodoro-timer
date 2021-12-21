@@ -12,9 +12,7 @@ window.onload = () => {
 
     setTimeout(() => {
       modal.style.display = 'none';
-    }, 3000);
-
-
+    }, 4000);
   }
 }
 
@@ -157,6 +155,12 @@ const pomodoro = (function () {
   function saveSettings() {
     if(window.localStorage){
       window.localStorage.setItem('time', time_limit);
+      modal.style.display = 'block';
+      modal.textContent = 'Settings saved successfully';
+
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 4000);
     }
     else {
       console.log('Your browser does not support local storage');
@@ -166,7 +170,12 @@ const pomodoro = (function () {
   function resetTimer() {
     time_passed = 0;
     time_left = time_limit;
+    stopTimer();
     timerInterval = null;
+    if(!btnToggleStart){
+      btnToggleStart = !btnToggleStart;
+    }
+    btnStart.textContent = 'start';
   }
 
   function stopTimer() {
