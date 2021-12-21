@@ -120,3 +120,19 @@ input[type=text]:disabled {
 .settings:hover {
   opacity: 1;
 }
+
+/* Information modal */
+#information-modal {
+  z-index: 10;
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 38%;
+  text-align: center;
+  background-color: rgb(83, 81, 81);
+  color: white;
+  width: 20%;
+  padding: 10px 25px;
+  border-radius: 15px;
+  transition: all 1s ease-in-out;
+}

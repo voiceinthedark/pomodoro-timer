@@ -71,7 +71,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![](2021-12-21-18-44-41.png)
+![](./images/2021-12-21-18-44-41.png)
 
 A simple Pomodoro Timer in plain JS
 

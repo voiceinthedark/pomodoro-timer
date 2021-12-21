@@ -1,3 +1,23 @@
+// check if localStorage is setup and fetch settings
+window.onload = () => {
+  if(window.localStorage && window.localStorage.getItem('time')){
+    pomodoro.setTimeLimit(window.localStorage.getItem('time'));
+    // console.log(pomodoro.getTimeLimit());
+    setTimeout(() => {
+      minutesInput.value = pomodoro.getMinutes();
+      secondsInput.value = pomodoro.getSeconds();  
+      modal.style.display = 'block';
+      modal.textContent = "User settings loaded successfully.";
+    }, 500);
+
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 3000);
+
+
+  }
+}
+
 /*** DOM elements ***/
 
 // get the input texts
@@ -15,6 +35,9 @@ const circle = document.querySelector('#circle');
 // the ring div
 const ringDiv = document.querySelector('.ring');
 
+// Information modal
+const modal = document.querySelector('#information-modal');
+
   /****************** */
   /** Pomodoro module */
   /****************** */
@@ -23,6 +46,7 @@ const pomodoro = (function () {
   const timerThreshold = {
     timeEnd: 4,
   }
+
   let radiusOfTimerCircle = circle.getAttribute('r');
   // Length of the arc 2*π*r
   /* we need this for stroke-dasharray value */
@@ -85,7 +109,7 @@ const pomodoro = (function () {
       setCircleDasharray();
 
       // nearing the end of the timer, play audio signal
-      if(time_left === 3){
+      if(time_left === timerThreshold.timeEnd){
         audioPlayer.playTimeEnd();
       }
 
@@ -130,6 +154,15 @@ const pomodoro = (function () {
     ringDiv.classList.add('ending');
   }
 
+  function saveSettings() {
+    if(window.localStorage){
+      window.localStorage.setItem('time', time_limit);
+    }
+    else {
+      console.log('Your browser does not support local storage');
+    }
+  }
+
   function resetTimer() {
     time_passed = 0;
     time_left = time_limit;
@@ -145,26 +178,24 @@ const pomodoro = (function () {
   }
   function setTimeLimit(n) {
     time_limit = n;
-  }
+  }  
 
-  function getTimeLeft() {
-    return time_left;
+  function getMinutes(){
+    return formatTimeLeft(getTimeLimit()).minutes;
   }
-
-  function getTimePassed() {
-    return time_passed;
+  function getSeconds(){
+    return formatTimeLeft(getTimeLimit()).seconds;
   }
 
   return {
     startTimer,
-    formatTimeLeft,
-    setCircleDasharray,
+    setCircleDasharray,    
     resetTimer,
     stopTimer,
-    getTimePassed,
-    getTimeLeft,
-    getTimeLimit,
-    setTimeLimit,   
+    setTimeLimit,  
+    saveSettings,
+    getMinutes,
+    getSeconds,
   };
 
 })();
@@ -201,10 +232,9 @@ btnStart.addEventListener('click', () => {
 
 btnReset.addEventListener('click', () => {
   // Reset the time
-  // time_limit = +minutesInput.value * 60 + +secondsInput.value;
   pomodoro.resetTimer();
-  minutesInput.value = pomodoro.formatTimeLeft(pomodoro.getTimeLimit()).minutes;
-  secondsInput.value = pomodoro.formatTimeLeft(pomodoro.getTimeLimit()).seconds;
+  minutesInput.value = pomodoro.getMinutes();
+  secondsInput.value = pomodoro.getSeconds();
   pomodoro.setCircleDasharray();
 });
 
@@ -219,24 +249,14 @@ btnSettings.addEventListener('click', () => {
  */
 minutesInput.addEventListener('blur', () => {
   pomodoro.setTimeLimit(+minutesInput.value * 60 + +secondsInput.value);
-  console.log(
-    'saving settings: m=>',
-    minutesInput.value,
-    'ms=>',
-    secondsInput.value
-  );
+  
   minutesInput.disabled = true;
-  // secondsInput.disabled = true;
 });
 
 secondsInput.addEventListener('blur', () => {
   pomodoro.setTimeLimit(+minutesInput.value * 60 + +secondsInput.value);
-  console.log(
-    'saving settings: m=>',
-    minutesInput.value,
-    'ms=>',
-    secondsInput.value
-  );
+  pomodoro.saveSettings();
+  
   minutesInput.disabled = true;
   secondsInput.disabled = true;
 });
