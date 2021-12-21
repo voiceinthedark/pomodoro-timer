@@ -18,8 +18,11 @@ const ringDiv = document.querySelector('.ring');
   /****************** */
   /** Pomodoro module */
   /****************** */
-  
+
 const pomodoro = (function () {
+  const timerThreshold = {
+    timeEnd: 4,
+  }
   let radiusOfTimerCircle = circle.getAttribute('r');
   // Length of the arc 2*π*r
   /* we need this for stroke-dasharray value */
@@ -80,6 +83,11 @@ const pomodoro = (function () {
       secondsInput.value = seconds;
 
       setCircleDasharray();
+
+      // nearing the end of the timer, play audio signal
+      if(time_left === 3){
+        audioPlayer.playTimeEnd();
+      }
 
       // time is up
       if (time_left === 0) {
@@ -159,6 +167,19 @@ const pomodoro = (function () {
     setTimeLimit,   
   };
 
+})();
+
+const audioPlayer = (function () {
+  // audio element
+  const audioEnd = document.querySelector('#timer-audio');
+
+  function playTimeEnd() {
+    audioEnd.play();
+  }
+
+  return { 
+    playTimeEnd,
+  }
 })();
 
 /*******************

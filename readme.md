@@ -30,7 +30,7 @@
 <br />
 <div align="center"> 
 
-  <h3 align="center">Pomodoro Timer JS</h3>
+  <h1 align="center">Pomodoro Timer JS</h3>
 
   <p align="center">
     Challenge #1 for the <a href="https://www.adventofjs.com/">Advent of JavaScript</a>
@@ -52,17 +52,10 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
+      <a href="#about-the-project">About The Project</a>      
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
+    <li>       
+    <li><a href="#installation">Installation</a></li>      
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
