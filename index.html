@@ -1,49 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01 - Pomodoro || Advent of JavaScript</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="text/javascript" src="script.js" defer></script>    
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>01 - Pomodoro || Advent of JavaScript</title>
-  <link rel="stylesheet" href="./styles.css" />
-  <script type="text/javascript" src='script.js' defer></script>
-</head>
-
-<body>
-  <div id='information-modal' class='slide-in-top'>
-    Information modal
-  </div>
-  <audio id="timer-audio">
-    <source src='./assets/mixkit-racing-countdown-timer-1051.wav' />
-    Browser does not support audio
-  </audio>
-
-  <div class="wrapper">
-    <div class="ring">
-      <svg width="518" height="518" viewBox="0 0 518 518">
-        <circle id="circle" stroke-width="9px" x="0" y="y" cx="259" cy="259" r="254" />
-      </svg>
+  <body>
+    <div id="information-modal" class="slide-in-top">Information modal</div>
+    <div class='music-wrapper'>      
+      <!-- <div class="music-player">
+        <div class='waveform'>
+        </div>
+        <div class='body'>
+          <span class='song-name'>A song</span>
+          <span id='play'>▶</span>
+        </div>
+      </div> -->
     </div>
+    <audio id="timer-audio">
+      <source src="./assets/mixkit-racing-countdown-timer-1051.wav" />
+      Browser does not support audio
+    </audio>
 
-    <div class="timer">
-      <div class="time">
-        <div class="minutes">
-          <input id="minutesInput" type="text" value="00" disabled />
-        </div>
-        <div class="colon">:</div>
-        <div class="seconds">
-          <input id="secondsInput" type="text" value="10" disabled />
-        </div>
+    <div class="wrapper">
+      <div class="ring">
+        <svg width="518" height="518" viewBox="0 0 518 518">
+          <circle
+            id="circle"
+            stroke-width="9px"
+            x="0"
+            y="y"
+            cx="259"
+            cy="259"
+            r="254"
+          />
+        </svg>
       </div>
-      <button class="start">start</button>
-      <button class='reset'>reset</button>
-      <button class="settings">
-        <img src="images/gear.svg" alt="Settings" />
-      </button>
+
+      <div class="timer">
+        <div class="time">
+          <div class="minutes">
+            <input id="minutesInput" type="text" value="00" disabled />
+          </div>
+          <div class="colon">:</div>
+          <div class="seconds">
+            <input id="secondsInput" type="text" value="10" disabled />
+          </div>
+        </div>
+        <button class="start">start</button>
+        <button class="reset">reset</button>
+        <button class="settings">
+          <img src="images/gear.svg" alt="Settings" />
+        </button>
+      </div>
     </div>
-  </div>
-
-</body>
-
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+  </body>
 </html>

@@ -134,7 +134,39 @@ input[type=text]:disabled {
   width: 20%;
   padding: 10px 25px;
   border-radius: 15px;
+  font-weight: 800;
   /* transition: display 1.5s ease-out; */
+}
+
+.music-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  display:flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 125px;
+}
+
+.music-player{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #3d3c3f;
+  height: 80px;
+}
+
+.music-player .body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  width: 120px;
+}
+
+.music-player .waveform {
+  width: 120px;
 }
 
 .slide-in-top {

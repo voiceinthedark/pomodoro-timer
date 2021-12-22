@@ -77,12 +77,6 @@ A simple Pomodoro Timer in plain JS
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-
-
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -111,8 +105,8 @@ Clicking on the tools button will allow the user to change the required time lim
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Add feature of local browser save, when the user sets the time limit.
-- [ ] Add a sfx sound when the timer approaches ending
+- [x] Add feature of local browser save, when the user sets the time limit.
+- [x] Add a sfx sound when the timer approaches ending
 - [ ] Add ambient zen music playing in the background while the timer is running
 
 

@@ -212,13 +212,70 @@ const pomodoro = (function () {
 const audioPlayer = (function () {
   // audio element
   const audioEnd = document.querySelector('#timer-audio');
+  // Music wrapper element
+  const musicWrapper = document.querySelector('.music-wrapper');
 
+  let wavesurf = null;
+
+  const musicStore = {
+    cancion: 'mixkit-cancion-de-crystal-583.mp3',
+    how: 'mixkit-how-579.mp3',
+    relaxation: 'mixkit-relaxation-03-747.mp3',
+    serene: 'mixkit-serene-moments-27.mp3',
+    special: 'mixkit-special-days-19.mp3',
+    staring: 'mixkit-staring-at-the-night-sky-168.mp3',
+  };
+
+  const createMusicDrawer = () => {
+    for(const song in musicStore){
+      // console.log(musicStore[song]);
+      const divMusicPlayer = document.createElement('div')
+      divMusicPlayer.classList.add('music-player');
+      const divWaveForm = document.createElement('div');
+      divWaveForm.classList.add('waveform');
+      divWaveForm.setAttribute('id', `${song}`);
+      divMusicPlayer.appendChild(divWaveForm);
+      const divMusicBody = document.createElement('div');
+      divMusicBody.classList.add('body');
+      const spanMusicBodyName = document.createElement('span');
+      spanMusicBodyName.classList.add('song-name');
+      spanMusicBodyName.textContent = song;
+      divMusicBody.appendChild(spanMusicBodyName);
+      const spanMusicBodyPlay = document.createElement('span');
+      spanMusicBodyPlay.textContent = '▶';
+      divMusicBody.appendChild(spanMusicBodyPlay);
+      divMusicPlayer.appendChild(divMusicBody);
+      musicWrapper.appendChild(divMusicPlayer);
+      
+      // Add wavesurfer
+      wavesurf = WaveSurfer.create({
+        container: `#${song}`,
+        // backgroundColor: 'white',
+        height: 60,
+        barWidth: 2,
+        barHeight: 1, // the height of the wave
+        barGap: null, // the optional spacing between bars of the wave, if not provided will be calculated in legacy format
+        responsive: true,
+        minPxPerSec: 5,
+        backend: 'MediaElement',
+        
+      });
+      
+      wavesurf.load(`./assets/music/${musicStore[song]}`);      
+      wavesurf.on('ready', () => {
+        console.log(`loaded ${musicStore[song]}`);        
+      });
+      
+    }
+  }
+  
   function playTimeEnd() {
     audioEnd.play();
   }
 
   return { 
     playTimeEnd,
+    createMusicDrawer,
   }
 })();
 
@@ -271,4 +328,4 @@ secondsInput.addEventListener('blur', () => {
 });
 
 
-
+audioPlayer.createMusicDrawer();
