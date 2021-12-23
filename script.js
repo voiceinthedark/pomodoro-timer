@@ -36,6 +36,11 @@ const ringDiv = document.querySelector('.ring');
 // Information modal
 const modal = document.querySelector('#information-modal');
 
+// Music wrapper element
+  const musicWrapper = document.querySelector('.music-wrapper');
+  const openDrawerBtn = document.querySelector('#open-drawer');
+  let openDrawerToggle = true;
+
   /****************** */
   /** Pomodoro module */
   /****************** */
@@ -211,9 +216,7 @@ const pomodoro = (function () {
 
 const audioPlayer = (function () {
   // audio element
-  const audioEnd = document.querySelector('#timer-audio');
-  // Music wrapper element
-  const musicWrapper = document.querySelector('.music-wrapper');
+  const audioEnd = document.querySelector('#timer-audio');  
 
   let playPauseBtnToggle = true;
   const loopChk = document.querySelector('#loopChk');
@@ -231,7 +234,6 @@ const audioPlayer = (function () {
 
   const createMusicDrawer = () => {
     for(const song in musicStore){
-      // console.log(musicStore[song]);
       const divMusicPlayer = document.createElement('div');
       divMusicPlayer.classList.add('music-player');
       const divWaveForm = document.createElement('div');
@@ -368,3 +370,15 @@ secondsInput.addEventListener('blur', () => {
 
 // Create and add the audio drawer to the page
 audioPlayer.createMusicDrawer();
+
+// Open and close the drawer
+openDrawerBtn.addEventListener('click', () => {
+  if(openDrawerToggle){
+    musicWrapper.style.left = '0';    
+    openDrawerBtn.textContent = '≪';
+  } else {
+    musicWrapper.style.left = '-126px';
+    openDrawerBtn.textContent = '≫';
+  }
+  openDrawerToggle = !openDrawerToggle;
+});

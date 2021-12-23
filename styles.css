@@ -141,7 +141,7 @@ input[type=text]:disabled {
 .music-wrapper {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -126px;
   height: 100vh;
   display:flex;
   flex-direction: column;
@@ -149,6 +149,17 @@ input[type=text]:disabled {
   width: 125px;
   justify-content: center;
   color: white;
+  transition: left 1s linear;
+}
+
+.music-wrapper>#open-drawer {
+  position: absolute;
+  top: 29px;
+  left: 125px;
+  z-index: 11;
+  font-weight: 800;
+  background-color: #2B2A30;
+  cursor: pointer;  
 }
 
 .music-player{
