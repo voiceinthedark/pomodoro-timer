@@ -107,7 +107,9 @@ Clicking on the tools button will allow the user to change the required time lim
 
 - [x] Add feature of local browser save, when the user sets the time limit.
 - [x] Add a sfx sound when the timer approaches ending
-- [ ] Add ambient zen music playing in the background while the timer is running
+- [x] Add ambient zen music playing in the background while the timer is running
+- [ ] move the music bar into it's own retractable drawer
+- [ ] Make an infinie playlist and single song loop
 
 
 See the [open issues](https://github.com/voiceinthedark/pomodoro-timer/issues) for a full list of proposed features (and known issues).
@@ -160,6 +162,7 @@ Project Link: [https://github.com/voiceinthedark/pomodoro-timer](https://github.
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
 - [MixKit](https://mixkit.co/) For the sfx sound
+- [Wavesurfer](https://wavesurfer-js.org/) for the wave spectrum sound
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
