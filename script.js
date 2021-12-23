@@ -215,7 +215,9 @@ const audioPlayer = (function () {
   // Music wrapper element
   const musicWrapper = document.querySelector('.music-wrapper');
 
-  let wavesurf = null;
+  let playPauseBtnToggle = true;
+  let wavesurfer = [];
+  let idx = 0; // index counter for wave id
 
   const musicStore = {
     cancion: 'mixkit-cancion-de-crystal-583.mp3',
@@ -233,7 +235,7 @@ const audioPlayer = (function () {
       divMusicPlayer.classList.add('music-player');
       const divWaveForm = document.createElement('div');
       divWaveForm.classList.add('waveform');
-      divWaveForm.setAttribute('id', `${song}`);
+      divWaveForm.setAttribute('id', `wave${idx}`);
       divMusicPlayer.appendChild(divWaveForm);
       const divMusicBody = document.createElement('div');
       divMusicBody.classList.add('body');
@@ -243,29 +245,49 @@ const audioPlayer = (function () {
       divMusicBody.appendChild(spanMusicBodyName);
       const spanMusicBodyPlay = document.createElement('span');
       spanMusicBodyPlay.textContent = '▶';
+      spanMusicBodyPlay.classList.add('play-btn');
+      spanMusicBodyPlay.setAttribute('id', `play${idx}`);
       divMusicBody.appendChild(spanMusicBodyPlay);
       divMusicPlayer.appendChild(divMusicBody);
       musicWrapper.appendChild(divMusicPlayer);
       
-      // Add wavesurfer
-      wavesurf = WaveSurfer.create({
-        container: `#${song}`,
+      /* Add wavesurfer */
+
+      wavesurfer[idx] = WaveSurfer.create({
+        container: `#wave${idx}`,
         // backgroundColor: 'white',
         height: 60,
         barWidth: 2,
         barHeight: 1, // the height of the wave
         barGap: null, // the optional spacing between bars of the wave, if not provided will be calculated in legacy format
         responsive: true,
-        minPxPerSec: 5,
+        minPxPerSec: 1,
         backend: 'MediaElement',
-        
+        waveColor: '#09A65A',
       });
       
-      wavesurf.load(`./assets/music/${musicStore[song]}`);      
-      wavesurf.on('ready', () => {
-        console.log(`loaded ${musicStore[song]}`);        
+      wavesurfer[idx].drawBuffer();
+      // load the asset on page load (ruminating on making it on play)
+      wavesurfer[idx].load(`./assets/music/${musicStore[song]}`);      
+      wavesurfer[idx].on('ready', () => {
+        console.log(`loaded ${musicStore[song]}`);
+      });
+
+      // TODO: Fix the on song done
+
+      /* Add the play button*/
+      spanMusicBodyPlay.addEventListener('click', (evt) => {
+        if(playPauseBtnToggle){
+          spanMusicBodyPlay.innerHTML = '&#9208;';
+        }else {
+          spanMusicBodyPlay.textContent = '▶';
+        }
+        playPauseBtnToggle = !playPauseBtnToggle;
+        // Had to use this small hack because i coudn't get the idx to work
+        wavesurfer[evt.target.id.slice(-1)].playPause();
       });
       
+      idx = idx + 1;
     }
   }
   

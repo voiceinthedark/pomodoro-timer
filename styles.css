@@ -163,6 +163,16 @@ input[type=text]:disabled {
   justify-content: space-between;
   color: white;
   width: 120px;
+  background-color: transparent;
+}
+
+.music-player>.body>.play-btn{
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.music-player>.body>.play-btn:hover{
+  opacity: 1;
 }
 
 .music-player .waveform {
