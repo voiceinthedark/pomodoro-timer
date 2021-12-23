@@ -231,7 +231,7 @@ const audioPlayer = (function () {
   const createMusicDrawer = () => {
     for(const song in musicStore){
       // console.log(musicStore[song]);
-      const divMusicPlayer = document.createElement('div')
+      const divMusicPlayer = document.createElement('div');
       divMusicPlayer.classList.add('music-player');
       const divWaveForm = document.createElement('div');
       divWaveForm.classList.add('waveform');
@@ -250,8 +250,11 @@ const audioPlayer = (function () {
       divMusicBody.appendChild(spanMusicBodyPlay);
       divMusicPlayer.appendChild(divMusicBody);
       musicWrapper.appendChild(divMusicPlayer);
-      
+
       /* Add wavesurfer */
+      /* ****** Fixing the wavesurfer object assigned dynamically *******
+       * https://stackoverflow.com/questions/50569574/dynamically-create-multiple-wavesurfer-objects-with-unique-names
+      * *************************************************************** */
 
       wavesurfer[idx] = WaveSurfer.create({
         container: `#wave${idx}`,
@@ -265,28 +268,33 @@ const audioPlayer = (function () {
         backend: 'MediaElement',
         waveColor: '#09A65A',
       });
-      
+
       wavesurfer[idx].drawBuffer();
       // load the asset on page load (ruminating on making it on play)
-      wavesurfer[idx].load(`./assets/music/${musicStore[song]}`);      
+      wavesurfer[idx].load(`./assets/music/${musicStore[song]}`);
       wavesurfer[idx].on('ready', () => {
         console.log(`loaded ${musicStore[song]}`);
       });
-
-      // TODO: Fix the on song done
+      
+      // when the song is done playing
+      wavesurfer[idx].on('finish', () => {
+        // change button to start
+        playPauseBtnToggle = !playPauseBtnToggle;
+        spanMusicBodyPlay.textContent = '▶';
+      });
 
       /* Add the play button*/
       spanMusicBodyPlay.addEventListener('click', (evt) => {
-        if(playPauseBtnToggle){
+        if (playPauseBtnToggle) {
           spanMusicBodyPlay.innerHTML = '&#9208;';
-        }else {
+        } else {
           spanMusicBodyPlay.textContent = '▶';
         }
         playPauseBtnToggle = !playPauseBtnToggle;
         // Had to use this small hack because i coudn't get the idx to work
         wavesurfer[evt.target.id.slice(-1)].playPause();
       });
-      
+
       idx = idx + 1;
     }
   }
