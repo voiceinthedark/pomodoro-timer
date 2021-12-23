@@ -216,6 +216,7 @@ const audioPlayer = (function () {
   const musicWrapper = document.querySelector('.music-wrapper');
 
   let playPauseBtnToggle = true;
+  const loopChk = document.querySelector('#loopChk');
   let wavesurfer = [];
   let idx = 0; // index counter for wave id
 
@@ -259,7 +260,7 @@ const audioPlayer = (function () {
       wavesurfer[idx] = WaveSurfer.create({
         container: `#wave${idx}`,
         // backgroundColor: 'white',
-        height: 60,
+        height: 65,
         barWidth: 2,
         barHeight: 1, // the height of the wave
         barGap: null, // the optional spacing between bars of the wave, if not provided will be calculated in legacy format
@@ -267,6 +268,7 @@ const audioPlayer = (function () {
         minPxPerSec: 1,
         backend: 'MediaElement',
         waveColor: '#09A65A',
+        backgroundColor: 'rgb(83, 81, 81)',
       });
 
       wavesurfer[idx].drawBuffer();
@@ -278,17 +280,24 @@ const audioPlayer = (function () {
       
       // when the song is done playing
       wavesurfer[idx].on('finish', () => {
-        // change button to start
-        playPauseBtnToggle = !playPauseBtnToggle;
-        spanMusicBodyPlay.textContent = '▶';
+        let id = spanMusicBodyPlay.getAttribute('id').slice(-1);
+        // if loop checkbox is checked seek back to the beginning and play again
+        if(loopChk.checked){          
+          wavesurfer[id].seekTo(0);
+          wavesurfer[id].playPause();
+        } else {
+          // change button to start
+          playPauseBtnToggle = !playPauseBtnToggle;
+          spanMusicBodyPlay.textContent = '▶';
+        }
       });
 
       /* Add the play button*/
       spanMusicBodyPlay.addEventListener('click', (evt) => {
         if (playPauseBtnToggle) {
-          spanMusicBodyPlay.innerHTML = '&#9208;';
+          spanMusicBodyPlay.innerHTML = '⏸︎';
         } else {
-          spanMusicBodyPlay.textContent = '▶';
+          spanMusicBodyPlay.textContent = '⏵︎';
         }
         playPauseBtnToggle = !playPauseBtnToggle;
         // Had to use this small hack because i coudn't get the idx to work
@@ -357,5 +366,5 @@ secondsInput.addEventListener('blur', () => {
   secondsInput.disabled = true;
 });
 
-
+// Create and add the audio drawer to the page
 audioPlayer.createMusicDrawer();
